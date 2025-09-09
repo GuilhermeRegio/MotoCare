@@ -1,0 +1,252 @@
+.avatar-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.avatar-large {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: 0 auto;
+}
+
+.stat-item {
+  padding: 1rem;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+  opacity: 0.8;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #495057;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.account-info {
+  font-size: 0.875rem;
+}
+
+.form-floating > .form-control:focus,
+.form-floating > .form-select:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.form-check-input:checked {
+  background-color: #667eea;
+  border-color: #667eea;
+}
+
+.form-check-input:focus {
+  border-color: #667eea;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+}
+
+.btn-primary {
+  background-color: #667eea;
+  border-color: #667eea;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #5a67d8;
+  border-color: #5a67d8;
+}
+
+.btn-success {
+  background-color: #38a169;
+  border-color: #38a169;
+}
+
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active {
+  background-color: #2f855a;
+  border-color: #2f855a;
+}
+
+.btn-warning {
+  background-color: #d69e2e;
+  border-color: #d69e2e;
+  color: white;
+}
+
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active {
+  background-color: #b7791f;
+  border-color: #b7791f;
+  color: white;
+}
+
+.text-primary {
+  color: #667eea !important;
+}
+
+.text-success {
+  color: #38a169 !important;
+}
+
+.text-info {
+  color: #3182ce !important;
+}
+
+.text-warning {
+  color: #d69e2e !important;
+}
+
+/* Tema escuro */
+body.tema-dark {
+  background-color: #1a202c;
+  color: #e2e8f0;
+}
+
+body.tema-dark .card {
+  background-color: #2d3748;
+  border-color: #4a5568;
+}
+
+body.tema-dark .bg-light {
+  background-color: #4a5568 !important;
+  color: #e2e8f0;
+}
+
+body.tema-dark .form-control,
+body.tema-dark .form-select {
+  background-color: #4a5568;
+  border-color: #718096;
+  color: #e2e8f0;
+}
+
+body.tema-dark .form-control:focus,
+body.tema-dark .form-select:focus {
+  background-color: #4a5568;
+  border-color: #667eea;
+  color: #e2e8f0;
+}
+
+body.tema-dark .text-muted {
+  color: #a0aec0 !important;
+}
+
+body.tema-dark .stat-item {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .avatar-circle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .avatar-circle i {
+    font-size: 1.2rem;
+  }
+
+  .stat-item {
+    padding: 0.75rem;
+  }
+
+  .stat-value {
+    font-size: 1.25rem;
+  }
+
+  .d-flex.gap-2 {
+    flex-direction: column;
+  }
+
+  .d-flex.gap-2 .btn {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Loading states */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Melhorias de UX */
+.form-floating > label {
+  font-weight: 500;
+}
+
+.card-header h5 {
+  font-weight: 600;
+}
+
+.border-top {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+body.tema-dark .border-top {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}

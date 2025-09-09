@@ -33,10 +33,19 @@ ENV/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-media/
-staticfiles/
-static_root/
-collected_static/
+backend/media/documentos/*
+backend/media/motos/*
+backend/media/perfis/*
+!backend/media/documentos/.gitkeep
+!backend/media/motos/.gitkeep
+!backend/media/perfis/.gitkeep
+backend/staticfiles/
+backend/static_root/
+backend/collected_static/
+
+# React Frontend
+frontend/build/
+frontend/node_modules/
 
 # Service files
 *.pid

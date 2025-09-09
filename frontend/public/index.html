@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#667eea" />
+    <meta name="msapplication-navbutton-color" content="#667eea">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#667eea">
+    <meta
+      name="description"
+      content="MotoCare - Sistema de Manutenção de Motocicletas"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS para remover barra de progresso do navegador -->
+    <style>
+      /* Ocultar barra de progresso nativa do navegador */
+      ::-webkit-progress-bar,
+      ::-webkit-progress-value,
+      progress {
+        display: none !important;
+        height: 0 !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+      }
+      
+      /* Para diferentes navegadores */
+      body::before,
+      html::before {
+        display: none !important;
+      }
+      
+      /* Remover indicadores visuais de carregamento */
+      * {
+        -webkit-tap-highlight-color: transparent;
+      }
+      
+      /* CSS mais específico para remover barras de carregamento */
+      body, html {
+        overflow-x: hidden;
+      }
+      
+      /* Ocultar qualquer elemento de progresso */
+      [role="progressbar"],
+      .progress,
+      .loading-bar,
+      .progress-bar {
+        display: none !important;
+      }
+      
+      /* Para Chrome/Safari - remover barra superior */
+      ::-webkit-progress-inner-element {
+        display: none !important;
+      }
+      
+      /* Para navegadores que usam CSS custom */
+      ::part(progress-bar) {
+        display: none !important;
+      }
+    </style>
+    
+    <title>MotoCare - Sistema de Manutenção</title>
+  </head>
+  <body>
+    <noscript>Você precisa habilitar JavaScript para executar este aplicativo.</noscript>
+    <div id="root"></div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

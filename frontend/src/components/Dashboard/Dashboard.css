@@ -1,0 +1,108 @@
+/* Dashboard Styles - Simplified */
+.dashboard-page {
+  /* Remove animation for now */
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.hover-lift {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+.card {
+  /* Remove transition and animation */
+  border: none;
+  border-radius: 0.35rem;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.progress {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  border-bottom: none !important;
+}
+
+.rounded-circle {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover .rounded-circle {
+  transform: scale(1.1);
+}
+
+.bg-opacity-10 {
+  --bs-bg-opacity: 0.1;
+}
+
+/* Loading states */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Basic styling without animations */
+.border-left-primary {
+  border-left: 0.25rem solid #4e73df !important;
+}
+
+.border-left-warning {
+  border-left: 0.25rem solid #f6c23e !important;
+}
+
+.border-left-info {
+  border-left: 0.25rem solid #36b9cc !important;
+}
+
+.border-left-success {
+  border-left: 0.25rem solid #1cc88a !important;
+}
+
+.text-xs {
+  font-size: 0.7rem;
+}
+
+.text-gray-300 {
+  color: #dddfeb !important;
+}
+
+.text-gray-800 {
+  color: #5a5c69 !important;
+}
+
+.font-weight-bold {
+  font-weight: 700 !important;
+}
+
+.shadow {
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.no-gutters > .col,
+.no-gutters > [class*="col-"] {
+  padding-right: 0;
+  padding-left: 0;
+}

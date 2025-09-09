@@ -1,0 +1,38 @@
+.modern-footer {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 2rem 0;
+  backdrop-filter: blur(10px);
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.modern-footer p {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+}
+
+.modern-footer .text-danger {
+  color: #e74c3c !important;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@media (max-width: 768px) {
+  .modern-footer .col-md-6 {
+    text-align: center !important;
+    margin-bottom: 0.5rem;
+  }
+  
+  .modern-footer .col-md-6:last-child {
+    margin-bottom: 0;
+  }
+}
