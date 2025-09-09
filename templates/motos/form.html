@@ -1,0 +1,675 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ titulo }} - MotoCare{% endblock %}
+
+{% block content %}
+<style>
+    /* Header Moderno e Atrativo */
+    .modern-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px 20px 0 0;
+        min-height: 160px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .modern-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+        animation: shimmer 3s ease-in-out infinite;
+    }
+    
+    .modern-header::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 50%),
+            radial-gradient(circle at 40% 80%, rgba(255,255,255,0.08) 0%, transparent 50%);
+        pointer-events: none;
+    }
+    
+    @keyframes shimmer {
+        0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+        50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    }
+    
+    .header-content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+    }
+    
+    .header-icon {
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: float 6s ease-in-out infinite;
+        box-shadow: 
+            0 8px 32px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .header-icon:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    .header-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        animation: slideInRight 0.8s ease-out;
+        background: linear-gradient(45deg, #fff, rgba(255,255,255,0.8));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .header-subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin-bottom: 1rem;
+        animation: slideInRight 0.8s ease-out 0.2s both;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    .header-stats {
+        display: flex;
+        gap: 2rem;
+        animation: slideInRight 0.8s ease-out 0.4s both;
+    }
+    
+    .stat-item {
+        text-align: center;
+        color: rgba(255, 255, 255, 0.9);
+        padding: 0.5rem;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+        transition: all 0.3s ease;
+    }
+    
+    .stat-item:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+    }
+    
+    .stat-number {
+        font-size: 1.2rem;
+        font-weight: 700;
+        display: block;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stat-label {
+        font-size: 0.85rem;
+        opacity: 0.8;
+    }
+    
+    /* Progress Bar Moderno */
+    .modern-progress {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        height: 8px;
+        overflow: hidden;
+        position: relative;
+        margin: 1.5rem 0;
+    }
+    
+    .modern-progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+        transition: width 0.6s ease;
+    }
+    
+    .modern-progress-bar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        animation: progressShine 2s ease-in-out infinite;
+    }
+    
+    @keyframes progressShine {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    
+    .progress-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+    }
+    
+    /* Formulário em seções - layout compacto */
+    .form-section {
+        background: #fff;
+        border-radius: 16px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        border: 1px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+    
+    .form-section:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+    
+    /* Botões de navegação */
+    .btn-navigation {
+        min-width: 120px;
+        padding: 0.75rem 1.5rem;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-navigation:hover {
+        transform: translateY(-2px);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .modern-header {
+            min-height: 140px;
+        }
+        
+        .header-icon {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .header-title {
+            font-size: 1.5rem;
+        }
+        
+        .header-stats {
+            gap: 1rem;
+        }
+    }
+</style>
+
+<div class="row justify-content-center">
+    <div class="col-lg-10 col-xl-8">
+        <div class="card border-0 shadow-lg">
+            <!-- Header Moderno -->
+            <div class="modern-header">
+                <div class="header-content p-4">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="header-icon">
+                                <i class="fas fa-motorcycle fa-2x text-white"></i>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h1 class="header-title text-white mb-0">{{ titulo }}</h1>
+                            <p class="header-subtitle text-white mb-0">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Cadastre sua motocicleta com segurança e praticidade
+                            </p>
+                        </div>
+                        <div class="col-auto d-none d-md-block">
+                            <div class="header-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">4</span>
+                                    <span class="stat-label">Etapas</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">~3</span>
+                                    <span class="stat-label">Minutos</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">100%</span>
+                                    <span class="stat-label">Seguro</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar Integrado no Header -->
+                    <div class="modern-progress">
+                        <div class="modern-progress-bar" id="header-progress" style="width: 25%"></div>
+                    </div>
+                    <div class="progress-info">
+                        <span id="progress-text">Etapa 1 de 4 - Informações Básicas</span>
+                        <span id="progress-percent">25%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-4">
+                <!-- Alertas do Django -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate
+                      action="{% if moto %}{% url 'motos:editar' moto.id %}{% else %}{% url 'motos:criar' %}{% endif %}">
+                    {% csrf_token %}
+
+                    <!-- Seção 1: Informações Básicas -->
+                    <div class="form-section" id="section-1">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                <span class="fw-bold">1</span>
+                            </div>
+                            <h5 class="mb-0 text-primary fw-bold">Informações Básicas</h5>
+                        </div>
+
+                        <div class="row g-3">
+                            <!-- Linha 1: Modelo e Marca -->
+                            <div class="col-md-6">
+                                <label for="id_modelo" class="form-label fw-semibold">
+                                    <i class="fas fa-motorcycle me-2"></i>Modelo <span class="text-danger">*</span>
+                                </label>
+                                {{ form.modelo }}
+                                <div class="invalid-feedback">
+                                    Por favor, informe o modelo da moto.
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="id_marca" class="form-label fw-semibold">
+                                    <i class="fas fa-tag me-2"></i>Marca <span class="text-danger">*</span>
+                                </label>
+                                {{ form.marca }}
+                                <div class="invalid-feedback">
+                                    Por favor, informe a marca da moto.
+                                </div>
+                            </div>
+
+                            <!-- Linha 2: Anos e Cor -->
+                            <div class="col-md-3">
+                                <label for="id_ano_inicio" class="form-label fw-semibold">
+                                    <i class="fas fa-calendar me-2"></i>Ano Início <span class="text-danger">*</span>
+                                </label>
+                                {{ form.ano_inicio }}
+                                <div class="invalid-feedback">
+                                    Por favor, informe o ano de início.
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="id_ano_fim" class="form-label fw-semibold">
+                                    <i class="fas fa-calendar-alt me-2"></i>Ano Fim
+                                </label>
+                                {{ form.ano_fim }}
+                                <small class="form-text text-muted">{{ form.ano_fim.help_text }}</small>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="id_cor" class="form-label fw-semibold">
+                                    <i class="fas fa-palette me-2"></i>Cor
+                                </label>
+                                {{ form.cor }}
+                            </div>
+
+                            <!-- Linha 3: Quilometragem -->
+                            <div class="col-md-6">
+                                <label for="id_km_atual" class="form-label fw-semibold">
+                                    <i class="fas fa-tachometer-alt me-2"></i>KM Atual <span class="text-danger">*</span>
+                                </label>
+                                {{ form.km_atual }}
+                                <div class="invalid-feedback">
+                                    Por favor, informe a quilometragem atual.
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="id_km_compra" class="form-label fw-semibold">
+                                    <i class="fas fa-shopping-cart me-2"></i>KM na Compra
+                                </label>
+                                {{ form.km_compra }}
+                                <small class="form-text text-muted">Quilometragem quando comprou a moto</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seção 2: Detalhes Técnicos -->
+                    <div class="form-section d-none" id="section-2">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                <span class="fw-bold">2</span>
+                            </div>
+                            <h5 class="mb-0 text-primary fw-bold">Detalhes Técnicos</h5>
+                        </div>
+
+                        <div class="row g-3">
+                            <!-- Linha 1: Especificações do Motor -->
+                            <div class="col-md-4">
+                                <label for="id_cilindrada" class="form-label fw-semibold">
+                                    <i class="fas fa-cog me-2"></i>Cilindrada
+                                </label>
+                                {{ form.cilindrada }}
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="id_tipo_motor" class="form-label fw-semibold">
+                                    <i class="fas fa-engine me-2"></i>Tipo do Motor
+                                </label>
+                                {{ form.tipo_motor }}
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="id_tipo_combustivel" class="form-label fw-semibold">
+                                    <i class="fas fa-gas-pump me-2"></i>Combustível
+                                </label>
+                                {{ form.tipo_combustivel }}
+                            </div>
+
+                            <!-- Linha 2: Transmissão -->
+                            <div class="col-md-12">
+                                <label for="id_tipo_transmissao" class="form-label fw-semibold">
+                                    <i class="fas fa-sync-alt me-2"></i>Transmissão
+                                </label>
+                                {{ form.tipo_transmissao }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seção 3: Documentação -->
+                    <div class="form-section d-none" id="section-3">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                <span class="fw-bold">3</span>
+                            </div>
+                            <h5 class="mb-0 text-primary fw-bold">Documentação</h5>
+                        </div>
+
+                        <div class="row g-3">
+                            <!-- Linha 1: Documentos de Identificação -->
+                            <div class="col-md-4">
+                                <label for="id_placa" class="form-label fw-semibold">
+                                    <i class="fas fa-id-card me-2"></i>Placa
+                                </label>
+                                {{ form.placa }}
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="id_chassi" class="form-label fw-semibold">
+                                    <i class="fas fa-barcode me-2"></i>Chassi
+                                </label>
+                                {{ form.chassi }}
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="id_renavam" class="form-label fw-semibold">
+                                    <i class="fas fa-file-alt me-2"></i>Renavam
+                                </label>
+                                {{ form.renavam }}
+                            </div>
+
+                            <!-- Linha 2: Datas -->
+                            <div class="col-md-6">
+                                <label for="id_data_compra" class="form-label fw-semibold">
+                                    <i class="fas fa-calendar-check me-2"></i>Data da Compra
+                                </label>
+                                {{ form.data_compra }}
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="id_data_fabricacao" class="form-label fw-semibold">
+                                    <i class="fas fa-industry me-2"></i>Data de Fabricação
+                                </label>
+                                {{ form.data_fabricacao }}
+                            </div>
+
+                            <!-- Linha 3: Uploads -->
+                            <div class="col-md-6">
+                                <label for="id_imagem_principal" class="form-label fw-semibold">
+                                    <i class="fas fa-camera me-2"></i>Imagem Principal
+                                </label>
+                                {{ form.imagem_principal }}
+                                <small class="form-text text-muted">Carregue uma foto da moto</small>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="id_documento_compra" class="form-label fw-semibold">
+                                    <i class="fas fa-file-upload me-2"></i>Documento de Compra
+                                </label>
+                                {{ form.documento_compra }}
+                                <small class="form-text text-muted">{{ form.documento_compra.help_text }}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seção 4: Confirmação -->
+                    <div class="form-section d-none" id="section-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <h5 class="mb-0 text-success fw-bold">Confirmar Dados</h5>
+                        </div>
+
+                        <div class="alert alert-info" role="alert">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Quase pronto!</strong> Verifique os dados preenchidos e clique em "Salvar Moto" para concluir.
+                        </div>
+
+                        <div class="row g-3">
+                            <!-- Observações finais -->
+                            <div class="col-12">
+                                <label for="id_observacoes" class="form-label fw-semibold">
+                                    <i class="fas fa-sticky-note me-2"></i>Observações Gerais
+                                </label>
+                                {{ form.observacoes }}
+                                <small class="form-text text-muted">Adicione informações extras sobre a moto</small>
+                            </div>
+
+                            <!-- Status da moto -->
+                            <div class="col-12">
+                                <div class="form-check form-switch">
+                                    {{ form.ativo }}
+                                    <label class="form-check-label fw-semibold" for="id_ativo">
+                                        <i class="fas fa-toggle-on me-2"></i>Moto ativa (disponível para manutenções)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botões de Navegação -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="button" class="btn btn-outline-secondary btn-navigation d-none" id="btn-anterior">
+                            <i class="fas fa-arrow-left me-2"></i>Anterior
+                        </button>
+                        <div class="ms-auto">
+                            <button type="button" class="btn btn-primary btn-navigation" id="btn-proximo">
+                                Próximo <i class="fas fa-arrow-right ms-2"></i>
+                            </button>
+                            <button type="submit" class="btn btn-success btn-navigation d-none" id="btn-salvar">
+                                <i class="fas fa-save me-2"></i>Salvar Moto
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Formulário de moto carregado!');
+    
+    let currentSection = 1;
+    const totalSections = 4;
+    
+    const btnProximo = document.getElementById('btn-proximo');
+    const btnAnterior = document.getElementById('btn-anterior');
+    const btnSalvar = document.getElementById('btn-salvar');
+    const progressBar = document.getElementById('header-progress');
+    const progressText = document.getElementById('progress-text');
+    const progressPercent = document.getElementById('progress-percent');
+    const form = document.querySelector('form');
+    
+    // Função para mostrar seção
+    function showSection(sectionNumber) {
+        console.log(`📋 Mostrando seção: ${sectionNumber}`);
+        
+        // Esconder todas as seções
+        for (let i = 1; i <= totalSections; i++) {
+            const section = document.getElementById(`section-${i}`);
+            if (section) {
+                section.classList.add('d-none');
+            }
+        }
+        
+        // Mostrar seção atual
+        const currentSectionEl = document.getElementById(`section-${sectionNumber}`);
+        if (currentSectionEl) {
+            currentSectionEl.classList.remove('d-none');
+        }
+        
+        // Atualizar progress bar
+        const percentage = (sectionNumber / totalSections) * 100;
+        if (progressBar) {
+            progressBar.style.width = `${percentage}%`;
+        }
+        
+        // Atualizar texto do progress
+        const sectionNames = {
+            1: 'Informações Básicas',
+            2: 'Detalhes Técnicos', 
+            3: 'Documentação',
+            4: 'Confirmar Dados'
+        };
+        
+        if (progressText) {
+            progressText.textContent = `Etapa ${sectionNumber} de ${totalSections} - ${sectionNames[sectionNumber]}`;
+        }
+        
+        if (progressPercent) {
+            progressPercent.textContent = `${Math.round(percentage)}%`;
+        }
+        
+        // Atualizar botões
+        btnAnterior.classList.toggle('d-none', sectionNumber === 1);
+        btnProximo.classList.toggle('d-none', sectionNumber === totalSections);
+        btnSalvar.classList.toggle('d-none', sectionNumber !== totalSections);
+        
+        currentSection = sectionNumber;
+    }
+    
+    // Função para validar seção
+    function validateSection(sectionNumber) {
+        console.log(`✅ Validando seção: ${sectionNumber}`);
+        
+        if (sectionNumber === 1) {
+            const modelo = document.getElementById('id_modelo').value;
+            const marca = document.getElementById('id_marca').value;
+            const ano_inicio = document.getElementById('id_ano_inicio').value;
+            const km_atual = document.getElementById('id_km_atual').value;
+            
+            if (!modelo || !marca || !ano_inicio || !km_atual) {
+                alert('Por favor, preencha todos os campos obrigatórios da seção 1!');
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    // Event listeners
+    if (btnProximo) {
+        btnProximo.addEventListener('click', function() {
+            console.log('➡️ Clique em Próximo');
+            
+            if (validateSection(currentSection)) {
+                if (currentSection < totalSections) {
+                    showSection(currentSection + 1);
+                }
+            }
+        });
+    }
+    
+    if (btnAnterior) {
+        btnAnterior.addEventListener('click', function() {
+            console.log('⬅️ Clique em Anterior');
+            
+            if (currentSection > 1) {
+                showSection(currentSection - 1);
+            }
+        });
+    }
+    
+    if (btnSalvar) {
+        btnSalvar.addEventListener('click', function(e) {
+            console.log('💾 Clique em Salvar');
+            e.preventDefault();
+            
+            // Validar campos obrigatórios
+            const modelo = document.getElementById('id_modelo').value;
+            const marca = document.getElementById('id_marca').value;
+            const ano_inicio = document.getElementById('id_ano_inicio').value;
+            const km_atual = document.getElementById('id_km_atual').value;
+            
+            if (!modelo || !marca || !ano_inicio || !km_atual) {
+                alert('Por favor, preencha todos os campos obrigatórios!');
+                return;
+            }
+            
+            console.log('✅ Enviando formulário...');
+            form.submit();
+        });
+    }
+    
+    // Inicializar
+    showSection(1);
+});
+</script>
+
+{% endblock %}

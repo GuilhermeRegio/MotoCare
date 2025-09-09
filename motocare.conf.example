@@ -1,0 +1,36 @@
+# Exemplo de configuração personalizada
+# Copie este arquivo para motocare.conf e ajuste as configurações
+
+# Configurações do servidor
+MOTOCARE_HOST=127.0.0.1  # Para acesso local apenas
+MOTOCARE_PORT=8080       # Porta alternativa
+
+# Configurações do Django
+DJANGO_SETTINGS_MODULE=moto_maintenance.settings
+DJANGO_DEBUG=False
+
+# Configurações de logging
+LOG_LEVEL=DEBUG          # Para desenvolvimento
+LOG_FILE=/var/log/motocare.log  # Localização do sistema
+
+# Configurações de recursos
+MEMORY_LIMIT=1G          # Aumentar limite de memória
+CPU_LIMIT=75%            # Aumentar limite de CPU
+
+# Configurações de segurança
+ALLOWED_HOSTS=localhost,127.0.0.1,motocare.local,your-domain.com
+
+# Configurações do banco de dados (para PostgreSQL)
+DB_ENGINE=django.db.backends.postgresql
+DB_NAME=motocare_db
+DB_USER=motocare_user
+DB_PASSWORD=your_secure_password
+DB_HOST=localhost
+DB_PORT=5432
+
+# Configurações de email
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER=your-email@gmail.com
+EMAIL_HOST_PASSWORD=your-app-password

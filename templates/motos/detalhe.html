@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ moto.modelo }} - MotoCare{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-lg">
+            <!-- Header da Moto -->
+            <div class="card-header bg-gradient-primary text-white py-4">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        {% if moto.imagem_principal %}
+                            <img src="{{ moto.imagem_principal.url }}" alt="{{ moto.modelo }}" 
+                                 class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                        {% else %}
+                            <div class="rounded-circle bg-white bg-opacity-20 p-3 me-3">
+                                <i class="fas fa-motorcycle fa-2x"></i>
+                            </div>
+                        {% endif %}
+                        <div>
+                            <h4 class="mb-0 fw-bold">{{ moto.marca }} {{ moto.modelo }}</h4>
+                            <p class="mb-0 opacity-75">{{ moto.ano_display }} • {{ moto.cor|default:"Cor não informada" }}</p>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        {% if moto.ativo %}
+                            <span class="badge bg-success bg-opacity-20 text-success border border-success">
+                                <i class="fas fa-check-circle me-1"></i>Ativa
+                            </span>
+                        {% else %}
+                            <span class="badge bg-secondary bg-opacity-20 text-secondary border border-secondary">
+                                <i class="fas fa-pause-circle me-1"></i>Inativa
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-4">
+                <!-- Informações Básicas -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-2">
+                            <i class="fas fa-tachometer-alt me-2"></i>Quilometragem Atual
+                        </h6>
+                        <p class="h5 mb-0">{{ moto.km_atual|floatformat:0 }} km</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-2">
+                            <i class="fas fa-shopping-cart me-2"></i>KM na Compra
+                        </h6>
+                        <p class="h5 mb-0">{{ moto.km_compra|floatformat:0 }} km</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-2">
+                            <i class="fas fa-cog me-2"></i>Cilindrada
+                        </h6>
+                        <p class="h5 mb-0">{{ moto.cilindrada }}cc</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-2">
+                            <i class="fas fa-gas-pump me-2"></i>Combustível
+                        </h6>
+                        <p class="h5 mb-0">{{ moto.tipo_combustivel }}</p>
+                    </div>
+                </div>
+
+                <!-- Informações Técnicas -->
+                {% if moto.tipo_motor or moto.tipo_transmissao %}
+                <hr class="my-4">
+                <h6 class="text-primary mb-3">
+                    <i class="fas fa-cogs me-2"></i>Especificações Técnicas
+                </h6>
+                <div class="row g-3">
+                    {% if moto.tipo_motor %}
+                    <div class="col-md-6">
+                        <strong>Motor:</strong> {{ moto.tipo_motor }}
+                    </div>
+                    {% endif %}
+                    {% if moto.tipo_transmissao %}
+                    <div class="col-md-6">
+                        <strong>Transmissão:</strong> {{ moto.tipo_transmissao }}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Documentação -->
+                {% if moto.placa or moto.chassi or moto.renavam %}
+                <hr class="my-4">
+                <h6 class="text-primary mb-3">
+                    <i class="fas fa-file-alt me-2"></i>Documentação
+                </h6>
+                <div class="row g-3">
+                    {% if moto.placa %}
+                    <div class="col-md-4">
+                        <strong>Placa:</strong> {{ moto.placa }}
+                    </div>
+                    {% endif %}
+                    {% if moto.chassi %}
+                    <div class="col-md-4">
+                        <strong>Chassi:</strong> {{ moto.chassi }}
+                    </div>
+                    {% endif %}
+                    {% if moto.renavam %}
+                    <div class="col-md-4">
+                        <strong>RENAVAM:</strong> {{ moto.renavam }}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Datas -->
+                {% if moto.data_compra or moto.data_fabricacao %}
+                <hr class="my-4">
+                <h6 class="text-primary mb-3">
+                    <i class="fas fa-calendar me-2"></i>Datas Importantes
+                </h6>
+                <div class="row g-3">
+                    {% if moto.data_compra %}
+                    <div class="col-md-6">
+                        <strong>Data da Compra:</strong> {{ moto.data_compra|date:"d/m/Y" }}
+                    </div>
+                    {% endif %}
+                    {% if moto.data_fabricacao %}
+                    <div class="col-md-6">
+                        <strong>Data de Fabricação:</strong> {{ moto.data_fabricacao|date:"d/m/Y" }}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Observações -->
+                {% if moto.observacoes %}
+                <hr class="my-4">
+                <h6 class="text-primary mb-3">
+                    <i class="fas fa-comment me-2"></i>Observações
+                </h6>
+                <p class="text-muted">{{ moto.observacoes|linebreaks }}</p>
+                {% endif %}
+
+                <!-- Botões de Ação -->
+                <hr class="my-4">
+                <div class="d-flex gap-2 flex-wrap">
+                    <a href="{% url 'motos:editar' moto.id %}" class="btn btn-outline-primary">
+                        <i class="fas fa-edit me-2"></i>Editar
+                    </a>
+                    <a href="{% url 'motos:lista' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-list me-2"></i>Ver Todas
+                    </a>
+                    <a href="#" class="btn btn-outline-success">
+                        <i class="fas fa-plus me-2"></i>Nova Manutenção
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <!-- Card de Resumo Rápido -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-light">
+                <h6 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>Resumo
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-muted">KM Rodados:</span>
+                    <strong>{{ moto.km_total_percorridos|floatformat:0 }} km</strong>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-muted">Criado em:</span>
+                    <strong>{{ moto.criado_em|date:"d/m/Y" }}</strong>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-muted">Atualizado em:</span>
+                    <strong>{{ moto.atualizado_em|date:"d/m/Y" }}</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card de Próximas Manutenções -->
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-light">
+                <h6 class="mb-0">
+                    <i class="fas fa-wrench me-2"></i>Próximas Manutenções
+                </h6>
+            </div>
+            <div class="card-body text-center text-muted">
+                <i class="fas fa-tools fa-2x mb-3 opacity-50"></i>
+                <p>Nenhuma manutenção agendada</p>
+                <a href="#" class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-plus me-1"></i>Agendar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
